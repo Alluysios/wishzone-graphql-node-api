@@ -1,13 +1,13 @@
-// process.on('uncaughtException', err => {
-//     console.log('UNHANDLER EXCEPTION SHUTDOWN...');
-//     console.log(err.name, err.message);
-//     process.exit(1);
-// })
+process.on('uncaughtException', err => {
+    console.log('UNHANDLER EXCEPTION SHUTDOWN...');
+    console.log(err.name, err.message);
+    process.exit(1);
+})
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: './config.env' });
-const server = require('./app');
+const app = require('./app');
 
 const db = process.env.DATABASE_WZ;
 
@@ -20,15 +20,15 @@ mongoose.connect(db, {
     console.log('DATABASE CONNECTED');
 })
 
-server.listen({ port: process.env.PORT || 8000 }).then((req) => {
-    console.log(`SERVER RUNNING!! ${req.url}`)
-})
+app.listen({ port: process.env.PORT || 8000 }, () => {
+    console.log(`App running on Port ${process.env.PORT}`)
+});
 
-// // SERVER ERROR EX: NOT CONNECTED TO DATABASE
-// process.on('unhandledRejection', err => {
-//     console.log('UNHANDLER REJECTION SHUTDOWN...');
-//     console.log(err.name, err.message);
-//     server.close(() => {
-//         process.exit(1);
-//     })
-// });
+// SERVER ERROR EX: NOT CONNECTED TO DATABASE
+process.on('unhandledRejection', err => {
+    console.log('UNHANDLER REJECTION SHUTDOWN...');
+    console.log(err.name, err.message);
+    server.close(() => {
+        process.exit(1);
+    })
+});

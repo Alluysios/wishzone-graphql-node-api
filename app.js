@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const compression = require('compression');
 
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer } = require('apollo-server-express');
 const parser = require('./utils/cloudinary')
 
 // TypeDefs and Resolvers
@@ -45,7 +45,7 @@ app.use(
     })
 );
 // // Serve static files
-// app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static('uploads'))
 // Body parser, reading data from the body into the req.body (limit 10kb)
 app.use(express.json({ limit: '10kb' }));
 // parse data from urlencoded form (files), {extended: true} = pass complex data
@@ -56,4 +56,6 @@ const server = new ApolloServer({
     resolvers,
     context: ({ req }) => ({ req })
 })
-module.exports = server;
+server.applyMiddleware({ app });
+
+module.exports = app;
