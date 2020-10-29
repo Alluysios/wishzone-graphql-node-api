@@ -14,6 +14,18 @@ module.exports = {
                 throw new Error(err);
             }
         },
+        async getProductsByCategory(_, { category }) {
+            try {
+                let filter = {category: category}
+                const products = await Product.find(filter).populate({
+                    path: 'review',
+                    select: 'rating review createdAt'
+                });
+                return products;
+            } catch (err) {
+                throw new Error(err);
+            }
+        },
         async getProduct(_, { slug }) {
             const product = await Product.findOne({ slug: slug }).populate({
                 path: 'review',

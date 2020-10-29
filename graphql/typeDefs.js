@@ -61,6 +61,7 @@ const typeDefs = gql`
     type Query {
         getProducts: [Product!]!
         getProduct(slug: String!): Product!
+        getProductsByCategory(category: String!): [Product]!
         getReviews: [Review!]!
         authorize: User!
     }
