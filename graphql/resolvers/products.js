@@ -38,12 +38,12 @@ module.exports = {
                 price,
                 sale,
                 featured,
-                ratingAverage
+                ratingAverage,
+                imageCover
             }
         }, 
         context) {
             const user = await protect(context)
-
             const newProduct = new Product({
                 name,
                 description,
@@ -51,11 +51,12 @@ module.exports = {
                 price,
                 sale,
                 featured,
-                ratingAverage
+                ratingAverage,
+                imageCover
             })
 
             const product = await newProduct.save();
-
+            console.log(product)
             return {
                 ...product._doc,
                 id: product._id
