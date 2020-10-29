@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const helmet = require('helmet')
 const cors = require('cors');
 const xss = require('xss-clean');
@@ -57,7 +56,6 @@ app.use('/graphql', parser.single('imageCover'));
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    playground: true,
     context: ({ req }) => ({ req })
 })
 server.applyMiddleware({ app });
