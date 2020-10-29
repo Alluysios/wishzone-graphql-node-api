@@ -16,7 +16,10 @@ module.exports = {
         },
         async getProductsByCategory(_, { category }) {
             try {
-                let filter = {category: category}
+                let filter = {};
+                if(category) {
+                    filter = { category: category }
+                }
                 const products = await Product.find(filter).populate({
                     path: 'review',
                     select: 'rating review createdAt'
