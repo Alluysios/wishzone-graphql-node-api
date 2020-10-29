@@ -56,6 +56,7 @@ app.use('/graphql', parser.single('imageCover'));
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
+    introspection: true,
     context: ({ req }) => ({ req })
 })
 server.applyMiddleware({ app });
