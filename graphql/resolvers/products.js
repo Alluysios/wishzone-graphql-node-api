@@ -54,7 +54,7 @@ module.exports = {
                 ratingAverage,
                 imageCover
             })
-
+            
             const product = await newProduct.save();
             console.log(product)
             return {
