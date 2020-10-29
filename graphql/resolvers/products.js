@@ -19,14 +19,16 @@ module.exports = {
                 path: 'review',
                 select: 'rating review createdAt'
             });
-        
+
             if (!product) {
                 throw new Error('No product found with that ID');
             }
-            
+
             return {
-                ...product
+                id: product._id,
+                ...product._doc
             };
+
         }
     },
     Mutation: {
