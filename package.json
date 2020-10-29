@@ -1,0 +1,46 @@
+{
+  "name": "wishzone",
+  "version": "1.0.0",
+  "description": "Shopping products",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Allu",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.18.2",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "express-mongo-sanitize": "^2.0.0",
+    "express-validator": "^6.6.1",
+    "graphql": "^15.3.0",
+    "helmet": "^4.1.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
+    "multer": "^1.4.2",
+    "restify": "^8.5.1",
+    "sharp": "^0.26.1",
+    "slugify": "^1.4.5",
+    "stripe": "^8.109.0",
+    "uuid": "^8.3.1",
+    "validator": "^13.1.17",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "12.16.3"
+  }
+}
