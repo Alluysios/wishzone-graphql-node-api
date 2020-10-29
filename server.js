@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: './config.env' });
-const app = require('./app');
+const server = require('./app');
 
 const db = process.env.DATABASE_WZ;
 
@@ -20,10 +20,9 @@ mongoose.connect(db, {
     console.log('DATABASE CONNECTED');
 })
 
-const PORT = process.env.PORT || 8000;
-app.listen({ port: PORT }, () => {
-    console.log(`App running on Port ${PORT}`)
-});
+server.listen({ port: process.env.PORT || 8000 }).then((req) => {
+    console.log(`SERVER RUNNING!! ${req.url}`)
+})
 
 // // SERVER ERROR EX: NOT CONNECTED TO DATABASE
 // process.on('unhandledRejection', err => {

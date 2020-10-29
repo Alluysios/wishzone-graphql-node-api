@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const compression = require('compression');
 
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server');
 const parser = require('./utils/cloudinary')
 
 // TypeDefs and Resolvers
@@ -56,6 +56,4 @@ const server = new ApolloServer({
     resolvers,
     context: ({ req }) => ({ req })
 })
-server.applyMiddleware({ app });
-
-module.exports = app;
+module.exports = server;
