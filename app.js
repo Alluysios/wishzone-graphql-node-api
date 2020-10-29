@@ -44,19 +44,16 @@ app.use(
         ]
     })
 );
-// Serve static files
-app.use('/uploads', express.static('uploads'))
+// // Serve static files
+// app.use('/uploads', express.static('uploads'))
 // Body parser, reading data from the body into the req.body (limit 10kb)
 app.use(express.json({ limit: '10kb' }));
 // parse data from urlencoded form (files), {extended: true} = pass complex data
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/graphql', parser.single('imageCover'));
-
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    introspection: true,
     context: ({ req }) => ({ req })
 })
 server.applyMiddleware({ app });
