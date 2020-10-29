@@ -46,6 +46,7 @@ app.use(
 );
 // Serve static files
 app.use('/uploads', express.static('uploads'))
+app.use(express.static(path.join(__dirname, 'public')));
 // Body parser, reading data from the body into the req.body (limit 10kb)
 app.use(express.json({ limit: '10kb' }));
 // parse data from urlencoded form (files), {extended: true} = pass complex data
