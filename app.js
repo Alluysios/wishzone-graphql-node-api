@@ -9,7 +9,6 @@ const hpp = require('hpp');
 const compression = require('compression');
 
 const { ApolloServer } = require('apollo-server-express');
-const parser = require('./utils/cloudinary')
 
 // TypeDefs and Resolvers
 const typeDefs = require('./graphql/typeDefs');
@@ -22,8 +21,17 @@ app.use(compression());
 MIDDLEWARE
 ==================
 */
+const whitelist = ['https://wishzone.netlify.app'];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if(whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}
 app.use(cors());
-app.options('*', cors());
 
 // Secure http headers
 app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
@@ -44,6 +52,9 @@ app.use(
         ]
     })
 );
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 // // Serve static files
 app.use('/uploads', express.static('uploads'))
 // Body parser, reading data from the body into the req.body (limit 10kb)
@@ -57,5 +68,30 @@ const server = new ApolloServer({
     context: ({ req }) => ({ req })
 })
 server.applyMiddleware({ app });
+
+app.post('/create-checkout-session', async (req, res) => {
+  const { cart } = req.body;
+  const products = cart.products.map(prod => {
+      return {
+        price_data: {
+          currency: 'cad',
+          product_data: {
+            name: prod.name
+          },
+          unit_amount: prod.price * 100,
+        },
+        quantity: prod.quantity,
+      }
+  });
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: products,
+    mode: 'payment',
+    success_url: 'https://wishzone.netlify.app/shop',
+    cancel_url: 'https://wishzone.netlify.app/',
+  });
+
+  res.json({ id: session.id });
+});
 
 module.exports = app;

@@ -30,7 +30,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "restify": "^8.5.1",
     "slugify": "^1.4.5",
-    "stripe": "^8.109.0",
+    "stripe": "^8.119.0",
     "uuid": "^8.3.1",
     "validator": "^13.1.17",
     "xss-clean": "^0.1.1"
