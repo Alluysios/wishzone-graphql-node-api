@@ -30,20 +30,12 @@ module.exports = {
             }
         },
         async getProduct(_, { slug }) {
-            const product = await Product.findOne({ slug: slug }).populate({
-                path: 'review',
-                select: 'rating review createdAt'
-            });
-
+            const product = await Product.findOne({ slug }).populate('review');
             if (!product) {
                 throw new Error('No product found with that ID');
             }
 
-            return {
-                id: product._id,
-                ...product._doc
-            };
-
+            return product;
         }
     },
     Mutation: {
